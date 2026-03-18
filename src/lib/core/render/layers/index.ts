@@ -5,5 +5,6 @@ export { CanvasTextureLayer } from "./CanvasTextureLayer";
 export { TextDisplayLayer } from "./TextDisplayLayer";
 export { ShapeDisplayLayer } from "./ShapeDisplayLayer";
 export { BarSpectrumDisplayLayer } from "./BarSpectrumDisplayLayer";
+export { FlowBackgroundDisplayLayer } from "./FlowBackgroundDisplayLayer";
 export { WaveSpectrumDisplayLayer } from "./WaveSpectrumDisplayLayer";
 export { SoundWaveDisplayLayer } from "./SoundWaveDisplayLayer";

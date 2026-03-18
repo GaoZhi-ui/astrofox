@@ -13,6 +13,7 @@ import {
 } from "./geometry";
 import {
 	BarSpectrumDisplayLayer,
+	FlowBackgroundDisplayLayer,
 	ImageDisplayLayer,
 	ShapeDisplayLayer,
 	SoundWaveDisplayLayer,
@@ -117,6 +118,17 @@ export default function R3FStageRoot({
 				case "ShapeDisplay":
 					scene2D.push(
 						<ShapeDisplayLayer
+							key={display.id}
+							display={display}
+							order={order}
+							frameData={frameData}
+							{...NEUTRAL_SCENE_PROPS}
+						/>,
+					);
+					break;
+				case "FlowBackgroundDisplay":
+					scene2D.push(
+						<FlowBackgroundDisplayLayer
 							key={display.id}
 							display={display}
 							order={order}

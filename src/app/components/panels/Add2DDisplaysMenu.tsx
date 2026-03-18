@@ -8,6 +8,7 @@ const DISPLAY_2D_CATEGORIES = [
 			"Image",
 			"Video",
 			"Shape",
+			"Flow Background",
 			"Bar Spectrum",
 			"Wave Spectrum",
 			"Sound Wave",
