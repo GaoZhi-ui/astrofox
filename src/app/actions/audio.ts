@@ -63,6 +63,8 @@ const AUDIO_FILE_FILTERS = [
 		extensions: ["aac", "flac", "mp3", "m4a", "opus", "ogg", "wav"],
 	},
 ];
+const DESKTOP_AUDIO_MISSING_MESSAGE =
+	"No audio track was shared. In Chrome or Edge, choose a tab with Share tab audio enabled, or choose Entire Screen with Share system audio enabled. Window sharing often has no audio.";
 
 let midiAccess: MIDIAccess | null = null;
 let activeMidiInput: MIDIInput | null = null;
@@ -441,9 +443,7 @@ export async function connectDesktopAudio() {
 		}
 
 		if (stream.getAudioTracks().length === 0) {
-			throw new Error(
-				"No audio track was shared. Select a source that includes audio.",
-			);
+			throw new Error(DESKTOP_AUDIO_MISSING_MESSAGE);
 		}
 
 		stream.getAudioTracks()[0].addEventListener("ended", () => {
@@ -474,6 +474,17 @@ export async function connectDesktopAudio() {
 	} catch (error) {
 		if (error instanceof Error && error.name === "NotAllowedError") {
 			updateAudioState({ loading: false });
+			return false;
+		}
+
+		if (
+			error instanceof Error &&
+			error.message === DESKTOP_AUDIO_MISSING_MESSAGE
+		) {
+			raiseError(DESKTOP_AUDIO_MISSING_MESSAGE, error, {
+				logLevel: "warn",
+			});
+			resetSourceState("desktop");
 			return false;
 		}
 

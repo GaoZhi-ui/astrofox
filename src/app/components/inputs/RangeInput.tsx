@@ -81,17 +81,24 @@ export default function RangeInput({
 	}
 
 	const currentValue = buffered ? bufferedValue : value;
-	const effectiveHideFill = hideFill || disabled;
-	const effectiveHideThumb = hideThumb || disabled;
+	const hasValidRange =
+		Number.isFinite(min) && Number.isFinite(max) && max > min;
+	const sliderMin = Number.isFinite(min) ? min : 0;
+	const sliderMax =
+		Number.isFinite(max) && max > sliderMin ? max : sliderMin + 1;
+	const sliderValue = hasValidRange ? currentValue : sliderMin;
+	const sliderDisabled = disabled || !hasValidRange;
+	const effectiveHideFill = hideFill || sliderDisabled;
+	const effectiveHideThumb = hideThumb || sliderDisabled;
 
 	return (
 		<SliderPrimitive.Root
 			className={cn("relative h-5 w-full group", className)}
-			value={currentValue}
-			min={min}
-			max={max}
+			value={sliderValue}
+			min={sliderMin}
+			max={sliderMax}
 			step={step}
-			disabled={disabled}
+			disabled={sliderDisabled}
 			onValueChange={(val) => handleValueChange(val as number)}
 			onValueCommitted={(val) => handleValueCommitted(val as number)}
 		>
@@ -113,7 +120,7 @@ export default function RangeInput({
 						{
 							invisible: effectiveHideThumb,
 							"group-hover:visible":
-								effectiveHideThumb && showThumbOnHover && !disabled,
+								effectiveHideThumb && showThumbOnHover && !sliderDisabled,
 						},
 					)}
 				/>
