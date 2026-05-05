@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { renderer, stage } from "@/app/global";
 import { getDisplayRenderGroup } from "@/lib/utils/displayRenderGroup";
-import cloneDeep from "lodash/cloneDeep";
 import create from "zustand";
 import { touchProject } from "./project";
 
@@ -770,7 +769,7 @@ export function reorderElement(sourceId, targetId) {
 }
 
 export function getScenesSnapshot() {
-	return cloneDeep(sceneStore.getState().scenes);
+	return structuredClone(sceneStore.getState().scenes);
 }
 
 export default sceneStore;

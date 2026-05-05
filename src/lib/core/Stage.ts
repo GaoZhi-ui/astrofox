@@ -7,7 +7,6 @@ import Entity from "@/lib/core/Entity";
 import EntityList from "@/lib/core/EntityList";
 import Scene from "@/lib/core/Scene";
 import { isDefined } from "@/lib/utils/array";
-import cloneDeep from "lodash/cloneDeep";
 
 export default class Stage extends Entity {
 	[key: string]: unknown;
@@ -138,7 +137,7 @@ export default class Stage extends Entity {
 			id,
 			name,
 			type,
-			properties: cloneDeep(properties),
+			properties: structuredClone(properties),
 		};
 	}
 }

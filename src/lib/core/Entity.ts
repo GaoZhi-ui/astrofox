@@ -1,6 +1,5 @@
 import { uniqueId } from "@/lib/utils/crypto";
 import { resolve, updateExistingProps } from "@/lib/utils/object";
-import cloneDeep from "lodash/cloneDeep";
 
 export default class Entity {
 	[key: string]: unknown;
@@ -64,7 +63,7 @@ export default class Entity {
 			name,
 			type,
 			enabled,
-			properties: cloneDeep(properties),
+			properties: structuredClone(properties),
 		};
 	}
 }

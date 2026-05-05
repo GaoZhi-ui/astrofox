@@ -1,9 +1,3 @@
-import FFTParser from "@/lib/audio/FFTParser";
-import Entity from "@/lib/core/Entity";
-import type { ReactorResult, RenderFrameData } from "@/lib/types";
-import { isDefined } from "@/lib/utils/array";
-import { getDisplayName } from "@/lib/utils/controls";
-import { ceil, floor, normalize } from "@/lib/utils/math";
 import {
 	FFT_SIZE,
 	REACTOR_BARS,
@@ -12,7 +6,12 @@ import {
 	REACTOR_BAR_WIDTH,
 	SAMPLE_RATE,
 } from "@/app/constants";
-import cloneDeep from "lodash/cloneDeep";
+import FFTParser from "@/lib/audio/FFTParser";
+import Entity from "@/lib/core/Entity";
+import type { ReactorResult, RenderFrameData } from "@/lib/types";
+import { isDefined } from "@/lib/utils/array";
+import { getDisplayName } from "@/lib/utils/controls";
+import { ceil, floor, normalize } from "@/lib/utils/math";
 
 const REACTOR_BINS = 64;
 const CYCLE_MODIFIER = 0.1;
@@ -182,8 +181,7 @@ export default class AudioReactor extends Entity {
 		this.result = { fft: [], output: 0 };
 		this.direction = 1;
 
-		const historySize = (this.properties as Record<string, number>)
-			.historySize;
+		const historySize = (this.properties as Record<string, number>).historySize;
 		this.energyHistory = new Array(historySize).fill(0);
 	}
 
@@ -197,8 +195,7 @@ export default class AudioReactor extends Entity {
 
 		if (selection) {
 			const { x, y, width, height } = selection as Record<string, number>;
-			const maxWidth =
-				REACTOR_BARS * (REACTOR_BAR_WIDTH + REACTOR_BAR_SPACING);
+			const maxWidth = REACTOR_BARS * (REACTOR_BAR_WIDTH + REACTOR_BAR_SPACING);
 			const maxHeight = REACTOR_BAR_HEIGHT;
 
 			properties.range = {
@@ -381,8 +378,7 @@ export default class AudioReactor extends Entity {
 
 		// Store current energy in circular buffer
 		this.energyHistory[this.historyIndex] = energy;
-		this.historyIndex =
-			(this.historyIndex + 1) % this.energyHistory.length;
+		this.historyIndex = (this.historyIndex + 1) % this.energyHistory.length;
 		if (this.historyIndex === 0) {
 			this.historyFilled = true;
 		}
@@ -484,7 +480,7 @@ export default class AudioReactor extends Entity {
 			type,
 			displayName,
 			enabled,
-			properties: cloneDeep(properties),
+			properties: structuredClone(properties),
 		};
 	}
 }

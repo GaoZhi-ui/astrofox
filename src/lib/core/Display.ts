@@ -1,7 +1,6 @@
 import Entity from "@/lib/core/Entity";
 import type { ReactorConfig, RenderFrameData } from "@/lib/types";
 import { getDisplayName } from "@/lib/utils/controls";
-import cloneDeep from "lodash/cloneDeep";
 
 export default class Display extends Entity {
 	[key: string]: unknown;
@@ -106,8 +105,8 @@ export default class Display extends Entity {
 			type,
 			enabled,
 			displayName,
-			properties: cloneDeep(properties),
-			reactors: cloneDeep(reactors),
+			properties: structuredClone(properties),
+			reactors: structuredClone(reactors),
 		};
 	}
 
