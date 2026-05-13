@@ -24,6 +24,7 @@ export default class MeshGridDisplay extends Display {
 			shading: "Smooth",
 			motion: "Radial",
 			color: "#FFFFFF",
+			texture: "",
 			wireframe: true,
 			edges: false,
 			edgeColor: "#FFFFFF",
@@ -59,6 +60,12 @@ export default class MeshGridDisplay extends Display {
 			color: {
 				label: "Color",
 				type: "color",
+			},
+			texture: {
+				label: "Texture",
+				type: "image",
+				hidden: (display: { properties: Record<string, unknown> }) =>
+					display.properties.material === "Points",
 			},
 			wireframe: {
 				label: "Wireframe",

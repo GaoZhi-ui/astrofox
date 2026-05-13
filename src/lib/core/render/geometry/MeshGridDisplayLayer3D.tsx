@@ -22,6 +22,7 @@ import {
 	createGridMotionContext,
 	sampleProceduralGridMotion,
 } from "./gridMotion";
+import { useTexture3D } from "./useTexture3D";
 
 function createMeshGridGeometry(
 	columns: number,
@@ -122,7 +123,10 @@ export function MeshGridDisplayLayer3D({
 		frequencyX = 0.3,
 		frequencyY = 0.5,
 		opacity = 1,
+		texture: textureSrc = "",
 	} = properties;
+
+	const textureMap = useTexture3D(textureSrc || undefined);
 
 	const gridColumns = Math.max(4, Math.round(Number(columns) || 4));
 	const gridRows = Math.max(4, Math.round(Number(rows) || 4));
@@ -183,6 +187,7 @@ export function MeshGridDisplayLayer3D({
 				blendEquationAlpha: sceneMask ? AddEquation : undefined,
 				blendSrcAlpha: sceneMask ? OneFactor : undefined,
 				blendDstAlpha: sceneMask ? ZeroFactor : undefined,
+				...(textureMap ? { map: textureMap } : {}),
 			};
 
 	React.useEffect(() => {

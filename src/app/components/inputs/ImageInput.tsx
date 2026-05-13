@@ -163,7 +163,7 @@ export default function ImageInput({ name, value, onChange }: ImageInputProps) {
               hidden: !hasImage,
             },
           )}
-          src={value}
+          src={value || undefined}
           alt=""
         />
         <TooltipProvider>

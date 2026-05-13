@@ -22,6 +22,7 @@ export default class CubesDisplay extends Display {
 			material: "Standard",
 			shading: "Smooth",
 			color: "#000000",
+			texture: "",
 			wireframe: false,
 			edges: true,
 			edgeColor: "#FFFFFF",
@@ -58,6 +59,10 @@ export default class CubesDisplay extends Display {
 			color: {
 				label: "Color",
 				type: "color",
+			},
+			texture: {
+				label: "Texture",
+				type: "image",
 			},
 			wireframe: {
 				label: "Wireframe",

@@ -23,6 +23,7 @@ import {
 	createGridMotionContext,
 	sampleProceduralGridMotion,
 } from "./gridMotion";
+import { useTexture3D } from "./useTexture3D";
 
 const DEPTH_BASE_RATIO = 0.1;
 const DEPTH_MAX_RATIO = 3.6;
@@ -273,7 +274,10 @@ export function CubesDisplayLayer3D({
 		frequencyX = 0.3,
 		frequencyY = 0.5,
 		opacity = 1,
+		texture: textureSrc = "",
 	} = properties;
+
+	const textureMap = useTexture3D(textureSrc || undefined);
 
 	const timeRef = React.useRef(0);
 	const surfaceMeshRef = React.useRef(null);
@@ -359,6 +363,7 @@ export function CubesDisplayLayer3D({
 				blendEquationAlpha: sceneMask ? AddEquation : undefined,
 				blendSrcAlpha: sceneMask ? OneFactor : undefined,
 				blendDstAlpha: sceneMask ? ZeroFactor : undefined,
+				...(textureMap ? { map: textureMap } : {}),
 			}),
 		[
 			blending,
@@ -369,6 +374,7 @@ export function CubesDisplayLayer3D({
 			shading,
 			surfaceEmissiveColor,
 			sceneMask,
+			textureMap,
 			wireframe,
 		],
 	);

@@ -37,6 +37,7 @@ export default class GeometryDisplay extends Display {
 			material: "Standard",
 			shading: "Smooth",
 			color: "#FFFFFF",
+			texture: "",
 			wireframe: false,
 			edges: false,
 			edgeColor: "#FFFFFF",
@@ -69,6 +70,12 @@ export default class GeometryDisplay extends Display {
 			color: {
 				label: "Color",
 				type: "color",
+			},
+			texture: {
+				label: "Texture",
+				type: "image",
+				hidden: (display: { properties: Record<string, unknown> }) =>
+					display.properties.material === "Points",
 			},
 			wireframe: {
 				label: "Wireframe",

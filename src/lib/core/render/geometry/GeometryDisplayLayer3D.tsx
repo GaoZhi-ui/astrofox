@@ -18,6 +18,7 @@ import {
 	getMaterialNode,
 	isPointsMaterial,
 } from "./GeometryDisplayLayer";
+import { useTexture3D } from "./useTexture3D";
 
 export function GeometryDisplayLayer3D({
 	display,
@@ -42,7 +43,10 @@ export function GeometryDisplayLayer3D({
 		z = 0,
 		pointSize = 8,
 		opacity = 1,
+		texture: textureSrc = "",
 	} = properties;
+
+	const textureMap = useTexture3D(textureSrc || undefined);
 
 	const parserRef = React.useRef(new FFTParser(properties));
 	const rotationRef = React.useRef({ x: 0, y: 0, z: 0 });
@@ -110,6 +114,7 @@ export function GeometryDisplayLayer3D({
 				blendEquationAlpha: sceneMask ? AddEquation : undefined,
 				blendSrcAlpha: sceneMask ? OneFactor : undefined,
 				blendDstAlpha: sceneMask ? ZeroFactor : undefined,
+				...(textureMap ? { map: textureMap } : {}),
 			};
 
 	return (
