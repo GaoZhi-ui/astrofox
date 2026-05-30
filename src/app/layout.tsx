@@ -12,8 +12,15 @@ export default function RootLayout({
 }: { children: React.ReactNode }) {
 	const showTrackingImage = process.env.NODE_ENV === "production";
 
+	const customHeadScript = process.env.NEXT_PUBLIC_HEAD_SCRIPT;
+
 	return (
 		<html lang="en">
+			<head>
+				{customHeadScript && (
+					<div dangerouslySetInnerHTML={{ __html: customHeadScript }} />
+				)}
+			</head>
 			<body className={`${fontVariables} ${inter.className}`}>
 				{showTrackingImage ? (
 					<img
