@@ -232,7 +232,7 @@ export default class Scene extends Display {
     this.updateReactors(data);
 
     const scene = { renderToScene, renderToCanvas, getSize };
-    const passes = [webglBuffer.pass, canvasBuffer.pass];
+    const passes = [webglBuffer.pass];
 
     if (displays.length > 0 || effects.length > 0) {
       displays.forEach(display => {
@@ -257,6 +257,7 @@ export default class Scene extends Display {
         }
       });
 
+      passes.push(canvasBuffer.pass);
       composer.render(passes);
     }
 
